@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 게시판 처리 SQL -->
+<mapper namespace="com.prac.chat.DAO.ChatMapper">
+	<insert id="join" parameterType = "user" >
+		INSERT INTO
+			USERACCOUNT
+		(USERID, USERPW)
+			VALUES
+		(#{userID}, #{userPW})
+	</insert>
+	
+	<select id="logIn" parameterType = "user" resultType = "user">
+		SELECT
+			USERID
+			,USERPW
+		FROM
+			USERACCOUNT
+		WHERE
+			USERID = #{userID}
+		AND
+			USERPW = #{userPW}
+	</select>
+
+	<insert id="makeRoom" parameterType = "room">
+		INSERT INTO
+			ROOM
+		(ROOMSEQ, USERID, NAME, INDATE)
+			VALUES
+		(ROOMSEQ.NEXTVAL, #{userID}, #{name}, SYSDATE)
+	</insert>
+	
+	<select id="showRoomList" parameterType = "room" resultType = "room">
+		SELECT
+			ROOMSEQ
+			,USERID
+			,NAME
+			,INDATE
+		FROM
+			ROOM
+	</select>
+	
+	<select id="roomDetail" parameterType = "String" resultType = "room">
+		SELECT
+			ROOMSEQ
+			,USERID
+			,NAME
+			,INDATE
+		FROM
+			ROOM
+		WHERE
+			ROOMSEQ=#{roomseq}
+	</select>
+	
+	<insert id="insertChat" parameterType = "chat">
+		INSERT INTO	
+			CHAT
+		(CHATSEQ,ROOMSEQ,USERID,MESSAGE,INDATE)
+		VALUES
+			(CHATSEQ.NEXTVAL, #{roomseq}, #{userID}, #{message}, SYSDATE)
+	</insert>
+	
+	<select id="printChat" parameterType = "String" resultType = "chat">
+		SELECT
+			USERID
+			,MESSAGE
+			,INDATE
+		FROM 
+			CHAT
+		WHERE
+			ROOMSEQ = #{roomseq}
+	</select>
+</mapper>

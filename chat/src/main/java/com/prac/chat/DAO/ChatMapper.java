@@ -21,4 +21,5 @@ public interface ChatMapper {
 	public int insertChat(Chat c);
 	
 	public ArrayList<Chat> printChat(String roomseq);
+	
 }

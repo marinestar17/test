@@ -82,11 +82,11 @@ public class ChatController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "roomDetail";
+		return "forward:/roomDetail";
 	}
 	
-	@RequestMapping(value = "/roomDetail", method = RequestMethod.GET)
-	public String roomDetail(String roomseq, Model mod) {
+	@RequestMapping(value = "/roomDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	public String roomDetail(Room room, String roomseq, Model mod) {
 		ArrayList<Chat> cList = null;
 		Room r = null;
 		try {
@@ -108,10 +108,17 @@ public class ChatController {
 		try {
 			result = dao.insertChat(c);
 			cList = dao.printChat(c.getRoomseq()+"");
+			Room r = dao.roomDetail(c.getRoomseq()+"");
 			mod.addAttribute("cList", cList);
+			mod.addAttribute("room", r);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "roomDetail";
+	}
+	
+	@RequestMapping(value = "/returnList" , method = RequestMethod.GET)
+	public String returnList() {
+		return "redirect:/goRoomList";
 	}
 }

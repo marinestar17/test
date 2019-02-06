@@ -41,6 +41,8 @@
 			,INDATE
 		FROM
 			ROOM
+		ORDER BY
+			INDATE DESC
 	</select>
 	
 	<select id="roomDetail" parameterType = "String" resultType = "room">
@@ -73,4 +75,6 @@
 		WHERE
 			ROOMSEQ = #{roomseq}
 	</select>
+	
+	
 </mapper>

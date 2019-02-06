@@ -25,7 +25,11 @@
 	<input type = "hidden" name = "roomseq" value = "${room.roomseq }">
 	<input type = "hidden" name = "userID" value = "${sessionScope.mem.userID }">
 	<input type = "text" name = "message">
-	<input type = "submit" name = "확인">
+	<input type = "submit" value = "확인">
+</form>
+
+<form action="returnList" method ="get">
+	<input type = "submit" value = "목록으로">
 </form>
 </body>
 </html>
